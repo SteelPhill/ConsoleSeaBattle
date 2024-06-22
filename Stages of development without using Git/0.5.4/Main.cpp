@@ -1,0 +1,83 @@
+#define Rows 12
+#define Columns 12
+#define TotalShipsNumber 10
+#define Ship 'O'
+#define Empty ' '
+#define Miss '*'
+#define Hit '+'
+#define Killed 'X'
+
+struct PlayerData
+{
+	string name;
+	bool isPlayer;
+	bool isFirstAI;
+	bool isEasyAI;
+};
+
+struct Coordinates
+{
+	int abscissa;
+	int ordinate;
+};
+
+struct ShotResult
+{
+	bool isHit;
+	bool isKilled;
+	int howManyShipsLeft = TotalShipsNumber;
+};
+
+struct Cell
+{
+	Coordinates coordinates;
+	ShotResult result;
+};
+
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <ctime>
+#include "TryKillShip.h"
+#include "TryReadValue.h"
+#include "PrintPlayField.h"
+#include "MenusAndActions.h"
+#include "Shooting.h"
+#include "BeginFillField.h"
+#include "GameModes.h"
+#include "SaveAndLoad.h"
+#include <Windows.h>
+using namespace std;
+
+
+//MAIN()
+void main()
+{
+	SetConsoleCP(1251);
+	SetConsoleOutputCP(1251);
+	srand(time(0));
+
+	char firstPlayerField[Rows][Columns];
+	char secondPlayerField[Rows][Columns];
+
+	Cell firstPlayerLastShot;
+	Cell secondPlayerLastShot;
+
+	PlayerData firstPlayerData;
+	PlayerData secondPlayerData;
+
+	ModeMenuItems gameMode;
+	DifficultySelectionMenuItems difficulty;
+
+	bool isNewGame;
+	bool isProgramContinue;
+
+	do
+	{
+		isProgramContinue = TryChoiceMainMenuItem(isNewGame, gameMode, difficulty, firstPlayerField, secondPlayerField, firstPlayerLastShot, secondPlayerLastShot, firstPlayerData, secondPlayerData);
+
+
+		SelectedMode(isNewGame, gameMode, difficulty, firstPlayerField, secondPlayerField, firstPlayerLastShot, secondPlayerLastShot, firstPlayerData, secondPlayerData);
+
+	} while (isProgramContinue);
+}

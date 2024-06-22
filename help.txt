@@ -1,0 +1,6 @@
+-  Before starting the program, 
+  you need to change the encoding
+  of files from Unicode to ANSI.
+   Перед запуском программы,
+  необходимо изменить кодировку
+  файлов с Unicode на ANSI.
